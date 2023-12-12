@@ -13,8 +13,27 @@
 function fizzBuzz() {
     // YOUR CODE GOES BELOW HERE //
 
-
-
+    //itterate from 1 to 100
+    for(let i = 1; i <= 100; i++){
+        //initialize output string
+        let str = "";
+        //if i is divisable by 3 add fizz to output string
+        if(i % 3 === 0){
+            str += 'Fizz';
+        }
+        //if i is divisable by 5 add buzz to output string
+        if(i % 5 === 0){
+            str += 'Buzz';
+        }
+        //if output string is empty add i to output string
+        if(str.length === 0){
+            console.log(i);
+        }
+        //otherwise log output string to console
+        else{
+            console.log(str);
+        };
+}
     // YOUR CODE GOES ABOVE HERE //
 }
 
