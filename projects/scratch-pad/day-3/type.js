@@ -14,10 +14,11 @@
  */
 function isArray(value) {
     // YOUR CODE BELOW HERE //
-    
-    
-    
-    
+    if(value === null){return false}
+    if(typeof value === 'object'){
+        return value.constructor.name === "Array"
+    }
+    return false
     // YOUR CODE ABOVE HERE //
 }
 
@@ -31,9 +32,12 @@ function isArray(value) {
  */
 function isObject(value) {
     // YOUR CODE BELOW HERE //
-    
-    
-    
+
+    if(value === null){return false}
+    if(typeof value === 'object'){
+        return value.constructor.name === "Object"
+    }
+    return false
     
     // YOUR CODE ABOVE HERE //
 }
@@ -47,7 +51,7 @@ function isObject(value) {
 function isCollection(value) {
     // YOUR CODE BELOW HERE //
     
-    
+    return isArray(value) || isObject(value);
     
     
     // YOUR CODE ABOVE HERE //
@@ -57,14 +61,14 @@ function isCollection(value) {
  * Given an input value, return the type of the value as a String
  * 
  * Types are one of: 
- *    - "string"
+ *    - "string"`
  *    - "array"
  *    - "object"
- *    - "undefined"
- *    - "number"
- *    - "boolean"
+ *    - "undefined"`
+ *    - "number"`
+ *    - "boolean"`
  *    - "null"
- *    - "function"
+ *    - "function"`
  *    - "date"
  * 
  * Examples:
@@ -75,7 +79,21 @@ function isCollection(value) {
 function typeOf(value) {
     // YOUR CODE BELOW HERE //
     
-    
+    switch(typeof value){
+        case 'boolean': 
+        case 'function':
+        case 'string':
+        case 'number':
+        case 'undefined':
+            return typeof value;
+        case 'object':
+            if(value === null){
+                return 'null'
+            }
+            else{
+                return value.constructor.name.toLowerCase()
+            }
+    }
     
     
     // YOUR CODE ABOVE HERE //

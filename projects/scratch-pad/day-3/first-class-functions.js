@@ -14,7 +14,15 @@
 function createGreaterThanFilter(base) {
     // YOUR CODE BELOW HERE //
     
-    
+    return function (given) {
+        if(typeof given === 'string'){
+            const letters = 'abcdefghijklmnopqrstuvwxyz';
+            return letters.indexOf(given) > letters.indexOf(base);
+        }
+        else{
+            return given > base;
+        }
+    }
     
     
     // YOUR CODE ABOVE HERE //
@@ -28,7 +36,9 @@ function createGreaterThanFilter(base) {
 function createLessThanFilter(base) {
     // YOUR CODE BELOW HERE //
     
-    
+    return function (given) {
+        return !createGreaterThanFilter(base)(given);
+    }
     
     
     // YOUR CODE ABOVE HERE //
@@ -42,12 +52,13 @@ function createLessThanFilter(base) {
 function createStartsWithFilter(startsWith) {
     // YOUR CODE BELOW HERE //
     
-    
+    return function (given) {
+        return given[0].toLowerCase() === startsWith.toLowerCase();
+    }
     
     
     // YOUR CODE ABOVE HERE //
 }
-
 /** 
  * Given a endsWith character, which will be a single character, return a 
  * Function that tests whether a given String ends with the endsWith 
@@ -56,7 +67,9 @@ function createStartsWithFilter(startsWith) {
 function createEndsWithFilter(endsWith) {
     // YOUR CODE BELOW HERE //
     
-    
+    return function (given) {
+        return given[given.length - 1].toLowerCase() === endsWith.toLowerCase();
+    }
     
     
     // YOUR CODE ABOVE HERE //
@@ -72,9 +85,15 @@ function createEndsWithFilter(endsWith) {
 function modifyStrings(strings, modify) {
     // YOUR CODE BELOW HERE //
     
-    
-    
-    
+    //initalize output array
+    let output = [];
+    //itterate through strings
+    for(let str of strings){
+        //push modified strings
+        output.push(modify(str)); 
+    }
+    //return modified strings
+    return output;
     // YOUR CODE ABOVE HERE //
 }
 
@@ -90,7 +109,7 @@ function modifyStrings(strings, modify) {
 function allStringsPass(strings, test) {
     // YOUR CODE BELOW HERE //
     
-    
+    return strings.every(test);
     
     
     // YOUR CODE ABOVE HERE //

@@ -24,11 +24,32 @@
 function range(start, end) {
     // YOUR CODE GOES BELOW HERE //
     
-    
-    
-    
+    //create new array
+    let arr = []
+    //if start greater than end
+    if(start < end){
+        console.log('flag')
+    //itterate i from start to finish
+        for(let i = start; i <= end; i++){
+        //push i to array
+        arr.push(i);
+        }
+    }
+    //if start greater than end
+    else{
+        //itterate i from start to finish
+        for(let i = start; i >= end; i--){
+            
+            //push i to array
+            arr.push(i)
+        }    
+    }
+    //return array
+    return arr;
     // YOUR CODE GOES ABOVE HERE //
 }
+
+console.log(range(1,10))
 
 
 
