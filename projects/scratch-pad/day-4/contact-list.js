@@ -35,7 +35,12 @@
 
 // YOUR CODE GOES BELOW HERE //
 function makeContact(id, nameFirst, nameLast) {
-
+    //return object with specified key value pairs
+    return {
+        id: id,
+        nameFirst: nameFirst,
+        nameLast: nameLast
+    }
 } 
 
 
@@ -43,12 +48,66 @@ function makeContactList() {
     /*
      * You need something here to hold contacts. See length api for a hint:
      */
-    var contacts;
+    let contacts = [];
     
     return {
-        // we implemented the length api for you //
+        //length(): returns the number of contacts within the list.
         length: function() {
             return contacts.length;
+        },
+
+        //addContact(contact): takes a contact object to be added to the contact-list.
+        addContact: function(contact) {
+            contacts.push(contact);
+        },
+
+        //takes a full-name String, like 'Max Gaudin', and  returns the contact object if found in the contacts-list, or, undefined if the fullName does not match any contacts in the list.
+        findContact: function(fullName) {
+            //itterate through contact array
+            for(let contact of contacts){
+                //grab first and last name in a formatted string
+                let currentFullName = `${contact.nameFirst} ${contact.nameLast}`;
+                //compare to input name
+                if(currentFullName === fullName){
+                    //return current object
+                    return contact;
+                }
+            }
+            //if not found return undefined
+            return undefined;
+        },
+
+        //takes a contact object to be removed from the contact-list.
+        removeContact: function(contact) {
+            //save contact name
+            const fullName = `${contact.nameFirst} ${contact.nameLast}`;
+            //itterate through contact array
+            for(let con of contacts){
+                //if current contact name is the same as input contact name delete it
+                if(fullName === `${con.nameFirst} ${con.nameLast}`){
+                    contacts.splice(contacts.indexOf(con), 1)
+                }
+            }
+        },
+        /*
+        The printAllContactNames() Function should 
+ *         return a String formated with all the full-names of the separated 
+ *         with a line-break, like so:
+ *          
+ *         myContacts.printAllContactNames(); // => Max Gaudin
+ *                                                  John Fraboni
+ *                                                  Kaelyn Chresfield
+        */
+        printAllContactNames: function() {
+            //initialize a storage array
+            let storageArr = [];
+            //itterate through the contacts array
+            for(let contact of contacts){
+                //push formatted string to storage array
+                storageArr.push(`${contact.nameFirst} ${contact.nameLast}`);
+            }
+            //log joined storage array
+            return (storageArr.join('\n'));
         }
     }
 }
