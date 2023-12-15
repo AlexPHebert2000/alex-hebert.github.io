@@ -175,6 +175,8 @@ function longest(stringOne, stringTwo) {
  *
  * TIP: How can we compare Strings? Is 'a' greater than or less than 'b'?
  */
+
+console.log(sortAscending('abcd', 'abd'))
 function sortAscending(stringOne, stringTwo) {
     // YOUR CODE BELOW HERE //
 
@@ -186,20 +188,20 @@ function sortAscending(stringOne, stringTwo) {
     for(let i = 0; i < shortest.length; i++){
         //if stringOne[i] is first before stringTwo[i] return 1
         if(letters.indexOf(stringOne[i]) < letters.indexOf(stringTwo[i])){
-            return 1;
+            return -1;
         }
         //if stringTwo[i] is first before stringOne[i] return -1
         if(letters.indexOf(stringOne[i]) > letters.indexOf(stringTwo[i])){
-            return -1;
+            return 1;
         }
     }
     //if stringOne is longer return -1
     if(stringOne.length > stringTwo.length){
-        return -1;
+        return 1;
     }
     //if stringTwo is longer return 1
     if(stringOne.length < stringTwo.length){
-        return 1;
+        return -1;
     }
     //otherwise return 0
     else{
