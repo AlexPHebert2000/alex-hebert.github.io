@@ -12,27 +12,41 @@
 // Step 1 - Object Creation //////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-
+var animal = {};
+animal.species = 'Dog';
+animal['name'] = 'Mox';
+animal.noises = [];
+console.log(animal);
 
 //////////////////////////////////////////////////////////////////////
 // Step 2 - Array Creation ///////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-
+var noises = [];
+noises[0] = 'woof!';
+noises.push('bark!');
+noises.unshift('awoo!');
+noises[noises.length] = 'yip!';
+console.log(noises.length);
+console.log(noises[noises.length - 1]);
+console.log(noises)
 
 //////////////////////////////////////////////////////////////////////
 // Step 3 - Combining Step 1 and 2 ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
+animal['noises'] = noises;
+animal.noises.push('yelp!');
+console.log(animal);
 
 
 /* *******************************************************************
  * Step 4 - Review
  *
  * 1. What are the different ways you can access properties on objects?
- *
+ *  Bracket and dot notation
  * 2. What are the different ways of accessing elements on arrays?
- *
+ *  bracket notation
  * *******************************************************************
  */
 
