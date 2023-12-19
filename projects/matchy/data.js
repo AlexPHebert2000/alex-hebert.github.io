@@ -13,10 +13,9 @@
 //////////////////////////////////////////////////////////////////////
 
 var animal = {};
-animal.species = 'Dog';
+animal.species = 'dog';
 animal['name'] = 'Mox';
 animal.noises = [];
-console.log(animal);
 
 //////////////////////////////////////////////////////////////////////
 // Step 2 - Array Creation ///////////////////////////////////////////
@@ -27,9 +26,6 @@ noises[0] = 'woof!';
 noises.push('bark!');
 noises.unshift('awoo!');
 noises[noises.length] = 'yip!';
-console.log(noises.length);
-console.log(noises[noises.length - 1]);
-console.log(noises)
 
 //////////////////////////////////////////////////////////////////////
 // Step 3 - Combining Step 1 and 2 ///////////////////////////////////
@@ -37,8 +33,6 @@ console.log(noises)
 
 animal['noises'] = noises;
 animal.noises.push('yelp!');
-console.log(animal);
-
 
 /* *******************************************************************
  * Step 4 - Review
@@ -63,20 +57,39 @@ console.log(animal);
 // Step 6 - A Collection of Animals //////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
+var animals = [];
+animals.push(animal);
 
+var duck = { species: 'duck', name: 'Jerome', noises: ['quack', 'honk', 'sneeze', 'woosh'] };
+animals.push(duck);
+
+var snake = { species: 'snake', name: 'Sally', noises: ['hiss', 'slither'] };
+animals.push(snake);
+
+var goat = { species: 'goat', name: 'Billy', noises: ['baa', 'scream', 'bleat'] };
+animals.push(goat);
 
 //////////////////////////////////////////////////////////////////////
 // Step 7 - Making Friends ///////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
+//An array is the best data structure for a friends list because the values do not need keys as indexes
+var friends = [];
 
+function getRandom(array){
+  return Math.floor(Math.random() * array.length);
+}
+
+friends.push(animals[getRandom(animals)].name)
+
+animal['friends'] = friends;
 
 /**
  * Nice work! You're done Part 1. Pat yourself on the back and
  * move onto Part 2 in the file called "functions.js"
  */
 
-
+console.log(animals.length)
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
