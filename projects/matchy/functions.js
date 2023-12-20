@@ -34,7 +34,7 @@ function replace(animals, name, replacement){
     //itterate through animals
     for(let index = 0; index < animals.length; index++){
         //if animal name = name
-        if(animal.name === name){
+        if(animals[index].name === name){
             //overwrite current index with replacement
             animals[index] = replacement;
         }
