@@ -346,6 +346,21 @@ _.reduce = function (arr, func, seed = 1){
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
 
+_.extend = function (baseObj, addObj, ...objs){
+    //create a list of additional objects
+    const objects = [addObj, ...objs];
+    //itterate though objects
+    for(let object of objects){
+        //itterate through keys of object
+        for(let key in object){
+            //add key value pair to base object
+            baseObj[key] = object[key];
+        }
+    }
+    //return base object
+    return baseObj;
+}
+
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
