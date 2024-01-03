@@ -209,6 +209,17 @@ var _ = {};
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function(collection, func){
+    //initalize new array
+    const returnArr = [];
+    //itterate through collection
+    for(let index in collection){
+        //push result of function call using element to new array
+        returnArr.push(func(collection[index], index, collection));
+    }
+    //return array
+    return returnArr;
+}
 
 /** _.pluck
 * Arguments:
@@ -243,6 +254,18 @@ var _ = {};
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
 
+_.every = function (collection, func = function(x){return x}){
+    //itterate through collection
+    for(let index in collection){
+        //if function called with element at index is false
+        if(!func(collection[index], index, collection)){
+            //return false
+            return false;
+        }
+    }   
+    //if every item passes, return true
+    return true;
+}
 
 /** _.some
 * Arguments:
@@ -265,6 +288,18 @@ var _ = {};
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+_.some = function (collection, func = function(x){return x}){
+    //itterate through collection
+    for(let index in collection){
+        //if function called with element at index is true
+        if(func(collection[index], index, collection)){
+            //return true
+            return true;
+        }
+    }   
+    //if every item fails, return false
+    return false;
+}
 
 /** _.reduce
 * Arguments:
@@ -284,6 +319,16 @@ var _ = {};
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
+
+_.reduce = function (arr, func, seed = 1){
+    //itterate through array
+    for(let index = 0; index < arr.length; index++){
+        //add function return with element call to seed
+        seed = func(seed, arr[index], index )
+    }
+    //return seed
+    return seed;
+}
 
 
 /** _.extend
