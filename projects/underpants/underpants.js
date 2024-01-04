@@ -21,6 +21,9 @@ var _ = {};
 *   _.identity({a: "b"}) === {a: "b"}
 */
 
+_.identity = function(value){
+    return value;
+}
 
 /** _.typeOf
 * Arguments:
@@ -42,6 +45,26 @@ var _ = {};
 * _.typeOf([1,2,3]) -> "array"
 */
 
+_.typeOf = function(value){
+     switch(typeof value){
+        case('string'):
+        case('function'):
+        case('undefined'):
+        case('boolean'):
+        case('number'):
+            return typeof value;
+        case('object'):
+        if(Array.isArray(value)){
+            return 'array';
+        }
+        else if(value){
+            return 'object';
+        }
+        else{
+            return "null";
+        }
+    }
+}
 
 /** _.first
 * Arguments:
@@ -61,6 +84,16 @@ var _ = {};
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
 
+_.first = function(arr, num){
+    if(!Array.isArray(arr) || typeof num !== 'number' && num || num < 0){return []}
+    else if(num === undefined){
+        return arr[0];
+    }
+    else{
+        arr.splice(num, arr.length - num);
+        return arr;
+    }
+}
 
 /** _.last
 * Arguments:
@@ -80,6 +113,14 @@ var _ = {};
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 
+_.last = function(arr, num){
+    if(!Array.isArray(arr)){return [];}
+    else if(num === undefined || typeof num !== 'number'){return arr[arr.length - 1];}
+    else if(num >= arr.length){return arr;}
+    else{
+        return arr.splice(arr.length - num);
+    }
+}
 
 /** _.indexOf
 * Arguments:
@@ -97,6 +138,17 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function(arr, value){
+    //itterate through array
+    for(let index in arr){
+        //if element == value return index
+        if(arr[index] === value){
+            return +index;
+        }
+    }
+    //if not found return -1
+    return -1;
+}
 
 /** _.contains
 * Arguments:
@@ -113,6 +165,9 @@ var _ = {};
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 
+_.contains = function(arr, val){
+    return _.indexOf(arr, val) > -1 ? true : false;
+}
 
 /** _.each
 * Arguments:
@@ -130,6 +185,13 @@ var _ = {};
 *      -> should log "a" "b" "c" to the console
 */
 
+_.each = function(collection, func){
+    //itterate through collection
+    for(let index in collection){
+        //apply function to element
+        func(collection[index], index, collection);
+    }
+}
 
 /** _.unique
 * Arguments:
@@ -141,6 +203,15 @@ var _ = {};
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
 
+_.unique = function(arr){
+    const output = [];
+    for(let index in arr){
+        if(+index === _.indexOf(arr, arr[index])){
+            output.push(arr[index]);
+        }
+    }
+    return output;
+}
 
 /** _.filter
 * Arguments:
@@ -158,6 +229,13 @@ var _ = {};
 *   use _.each in your implementation
 */
 
+_.filter = function(arr, func){
+    const output = [];
+    for(let index in arr){
+        if(func(arr[index], +index, arr)){output.push(arr[index])}
+    }
+    return output;
+}
 
 /** _.reject
 * Arguments:
@@ -172,6 +250,13 @@ var _ = {};
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 
+_.reject = function(arr, func){
+    const output = [];
+    for(let index in arr){
+        if(!func(arr[index], +index, arr)){output.push(arr[index])}
+    }
+    return output;
+}
 
 /** _.partition
 * Arguments:
@@ -192,6 +277,9 @@ var _ = {};
 }
 */
 
+_.partition = function(arr, func){
+    return [_.filter(arr, func),_.reject(arr, func)];
+}
 
 /** _.map
 * Arguments:
@@ -209,6 +297,17 @@ var _ = {};
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function(collection, func){
+    //initalize new array
+    const returnArr = [];
+    //itterate through collection
+    for(let index in collection){
+        //push result of function call using element to new array
+        returnArr.push(func(collection[index], index, collection));
+    }
+    //return array
+    return returnArr;
+}
 
 /** _.pluck
 * Arguments:
@@ -221,6 +320,9 @@ var _ = {};
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 
+_.pluck = function(arr, property){
+    return _.map(arr, function(x){return x[property]})
+}
 
 /** _.every
 * Arguments:
@@ -243,6 +345,18 @@ var _ = {};
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
 
+_.every = function (collection, func = function(x){return x}){
+    //itterate through collection
+    for(let index in collection){
+        //if function called with element at index is false
+        if(!func(collection[index], index, collection)){
+            //return false
+            return false;
+        }
+    }   
+    //if every item passes, return true
+    return true;
+}
 
 /** _.some
 * Arguments:
@@ -265,6 +379,18 @@ var _ = {};
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+_.some = function (collection, func = function(x){return x}){
+    //itterate through collection
+    for(let index in collection){
+        //if function called with element at index is true
+        if(func(collection[index], index, collection)){
+            //return true
+            return true;
+        }
+    }   
+    //if every item fails, return false
+    return false;
+}
 
 /** _.reduce
 * Arguments:
@@ -285,6 +411,16 @@ var _ = {};
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+_.reduce = function (arr, func, seed = 1){
+    //itterate through array
+    for(let index = 0; index < arr.length; index++){
+        //add function return with element call to seed
+        seed = func(seed, arr[index], +index )
+    }
+    //return seed
+    return seed;
+}
+
 
 /** _.extend
 * Arguments:
@@ -300,6 +436,21 @@ var _ = {};
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+_.extend = function (baseObj, addObj, ...objs){
+    //create a list of additional objects
+    const objects = [addObj, ...objs];
+    //itterate though objects
+    for(let object of objects){
+        //itterate through keys of object
+        for(let key in object){
+            //add key value pair to base object
+            baseObj[key] = object[key];
+        }
+    }
+    //return base object
+    return baseObj;
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
