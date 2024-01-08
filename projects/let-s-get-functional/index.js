@@ -3,7 +3,7 @@
 'use strict';
 
 var customers = require('./data/customers.json');
-var _ = require(/* Replace this with the name of your lodown! */);
+var _ = require('underbar');
 
 /**
  * 1. Import your lodown module using the require() method,
@@ -16,22 +16,62 @@ var _ = require(/* Replace this with the name of your lodown! */);
  *
  * 4. To test your work, run the following command in your terminal:
  *
- *    npm start --prefix ./<YOUR_GITHUB_FOLDER/projects/let-s-get-functional
- *
- *    IMPORTANT: Make sure you replace <YOUR_GITHUB_FOLDER with your actual github folder name that is in your workspace.
+ *    npm start --prefix ./alex-hebert.github.io/projects/let-s-get-functional
+ * 
  */
 
 var maleCount = function(array) {
+    return _.filter(array, customer => customer.gender === 'male').length
+};
+
+var femaleCount = function(array){
+
+    return  _.reduce(array, (acc, current) => acc + (current.gender === 'female' ? 1 : 0), 0)
+};
+
+var oldestCustomer = function(array){
+    //initalize current oldest
+    let currentOldest = array[0];
+    //itterate through array
+    for(let customer of array){
+        //if customer is older than current oldest
+        if(customer.age > currentOldest.age){
+            //change current oldest
+            currentOldest = customer;
+        }
+    }
+    //return current oldest name
+    return currentOldest.name;
 
 };
 
-var femaleCount;
+var youngestCustomer = function(array){
+    //initalize current youngest
+    let currentYoungest = array[0];
+    //itterate through array
+    for(let customer of array){
+        //if customer is younger than current youngest
+        if(customer.age < currentYoungest.age){
+            //change current youngest 
+            currentYoungest = customer;
+        }
+    }
+    //return current oldest name
+    return currentYoungest.name;
+}
+;
 
-var oldestCustomer;
+var averageBalance = function(array){
+    const reducer = function(acc, current){
+        let currentBalance = current.balance.replaceAll(/\$*(,)*/g, "")
+        return acc + parseFloat(currentBalance);
+    };
 
-var youngestCustomer;
+    return Math.round(_.reduce(array, reducer, 0) / array.length, 2)
 
-var averageBalance;
+};
+
+console.log(averageBalance(customers));
 
 var firstLetterCount;
 
