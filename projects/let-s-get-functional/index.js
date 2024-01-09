@@ -67,21 +67,77 @@ var averageBalance = function(array){
         return acc + parseFloat(currentBalance);
     };
 
-    return Math.round(_.reduce(array, reducer, 0) / array.length, 2)
+    return _.reduce(array, reducer, 0) / array.length
 
 };
 
-console.log(averageBalance(customers));
 
-var firstLetterCount;
+var firstLetterCount = function (arr, letter){
+    return _.filter(arr, (current) => current.name[0].toLowerCase() === letter.toLowerCase()).length
+};
 
-var friendFirstLetterCount;
+var friendFirstLetterCount = function (arr, customer, letter){
+    //search for customer
+    for(let element of arr){
+        if(element.name === customer){
+            return _.filter(_.pluck(element.friends, "name"), (friendName) => friendName[0].toLowerCase() === letter.toLowerCase()).length
+        }
+    }
+};
 
-var friendsCount;
+var friendsCount = function(arr, name){
+    return _.pluck(_.filter(arr, customer => _.pluck(customer.friends, 'name').includes(name)),"name")
+};
 
-var topThreeTags;
+var topThreeTags = function(arr){
+    //initialize an array to store tags
+    let allTags = []
+    //itterate through array
+    for(let customer of arr){
+        //add customer tags to all tags
+        allTags[allTags.length] = customer.tags
+    }
+    //flatten allTags
+    allTags = allTags.flat()
 
-var genderCount;
+    //create list of uniuqe tags
+    const tagSet = _.uniq(allTags);
+
+    //sort all tags
+    allTags = allTags.sort();
+console.log(allTags);
+    //intialize tags with counts
+    const tagsWithCounts = []
+
+    //fill tags with counts
+    for(let tag of tagSet){
+        //get count
+        let count = allTags.lastIndexOf(tag) - allTags.indexOf(tag) + 1;
+
+        //add to tags with counts
+        tagsWithCounts.push([tag, count])
+
+    }
+
+    //sort tags by count
+    tagsWithCounts.sort((a, b) => {return a[1] > b[1] ? -1 : 1})
+
+    //return top 3
+    return [tagsWithCounts[0][0], tagsWithCounts[1][0], tagsWithCounts[2][0]]
+};
+
+console.log(topThreeTags(customers))
+
+
+var genderCount = function(arr){
+
+    return {
+        male : maleCount(arr),
+        female: femaleCount(arr),
+        "non-binary": _.reduce(arr, (acc, current) => acc + (current.gender === 'non-binary' ? 1 : 0), 0)
+    }
+
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
