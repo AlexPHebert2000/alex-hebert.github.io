@@ -29,8 +29,22 @@ function every(arr, test) {
 // dominantDirection ///////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
 
-function dominantDirection() {
-
+function dominantDirection(text) {
+  //create ltr counter
+  let ltr = 0;
+  //create rtl counter
+  let rtl = 0;
+  //itterate through text
+  for(let i = 0; i < text.length; i++){
+    //determine script of current char
+    let script = characterScript(text.charCodeAt(i)); //script object
+    //determine if script found
+    if(script != null){
+      //increment appropriate counter
+      script.direction === 'ltr' ? ltr++ : rtl++;
+    }
+  }
+  return ltr > rtl ? 'ltr' : 'rtl';
 }
 
 // /////////////////////////////////////////////////////////////////////////////

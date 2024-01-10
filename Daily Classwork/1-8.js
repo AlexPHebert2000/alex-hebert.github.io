@@ -15,5 +15,4 @@ function multiplyByTen(array, output=[]){
     }
   }
   
-  console.log(multiplyByTen([1, 2, 3])); // [10, 20, 30]
-
+  //console.log(multiplyByTen([1, 2, 3])); // [10, 20, 30]
